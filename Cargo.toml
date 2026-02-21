@@ -1,7 +1,7 @@
 [package]
 name = "btcnode-metrics"
 edition = "2024"
-version = "1.0.0"
+version = "2.0.0"
 description = "The Bitcoin node metrics exporter for Prometheus built on the Rust Bitcoin Community's corepc-client crate."
 license-file = "LICENSE"
 homepage = "https://github.com/AltaModaTech/btcnode-metrics"
@@ -17,7 +17,7 @@ serde = { version = "1", features = ["derive"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 clap = { version = "4", features = ["derive"] }
-toml = "0.8"
+toml = "1"
 anyhow = "1"
 corepc-client = { version = "0.10", features = ["client-sync"] }
 thiserror = "2"
