@@ -1,0 +1,8 @@
+
+[node]
+rpc_url = "http://127.0.0.1:8332"
+rpc_user = "bitcoin"
+rpc_password = "bShipIt!7466c1"
+
+[server]
+listen_addr = "0.0.0.0:9898"
