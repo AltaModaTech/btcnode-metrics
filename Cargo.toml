@@ -2,7 +2,7 @@
 name = "btcnode-metrics"
 edition = "2024"
 version = "2.0.0"
-description = "The Bitcoin node metrics exporter for Prometheus built on the Rust Bitcoin Community's corepc-client crate."
+description = "The Bitcoin node metrics exporter for Prometheus based on Rust Bitcoin Community's crate for Bitcoin JSON-RPC."
 license-file = "LICENSE"
 homepage = "https://github.com/AltaModaTech/btcnode-metrics"
 repository = "https://github.com/AltaModaTech/btcnode-metrics"
