@@ -14,7 +14,7 @@ fi
 # Does the local config file exist?
 config_file = "../config.local.toml"
 if [ -f ] $config_file; then
-  sudo cp $config_file $config_dir
+  cp $config_file $config_dir
 fi
 # Ensure btcnode_metric's user and default group own the config file
-sudo chown -R btcnode_metrics:btcnode_metrics /home/btcnode_metrics/.config/btcnode_metrics
+chown -R btcnode_metrics:btcnode_metrics /home/btcnode_metrics/.config/btcnode_metrics
