@@ -1,0 +1,13 @@
+[Unit]
+Description=Bitcoin Node Metrics Exporter for Prometheus
+After=network.target
+
+[Service]
+User=btcnode_metrics
+WorkingDirectory=/home/btcnode_metrics
+ExecStart=/usr/local/bin/btcnode-metrics -c /home/btcnode_metrics/.config/btcnode_metrics/config.local.toml
+Type=simple
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
