@@ -23,6 +23,10 @@ Follow these steps to initialize the host before the first time running the serv
 
   `sudo cp ./linux/etc/systemd/system/btcnode-metrics.service /etc/systemd/system/`
 
+- Set the service to start on boot
+
+  `sudo systemctl enable btcnode-metrics`
+
 ## Updating
 
 Follow these instructions for updating the btcnode-metrics application or its config file.

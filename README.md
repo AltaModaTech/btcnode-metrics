@@ -4,6 +4,8 @@ The Bitcoin node metrics exporter for Prometheus based on Rust Bitcoin Community
 
 ## Install & Configure
 
+These instructions are for installing and running from the shell. To install as a SystemD service, follow [these instructions](./linux/SystemD-service.md).
+
 ### Install
 
 `cargo install btcnode-metrics`
