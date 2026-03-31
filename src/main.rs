@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: 2026 AltaModa Technologies, LLC
+// SPDX-FileCopyrightText: Contributors to the btcnode-metrics project.
+
 mod btcnode_metrics_gatherer;
 mod handlers;
 mod state;
@@ -17,7 +21,7 @@ use crate::btcnode_metrics_gatherer::{AppConfig, BitcoinMetrics, BitcoinNode, Me
 use crate::state::AppState;
 
 #[derive(Parser)]
-#[command(name = "btc-metrics", about = "Bitcoin node metrics exporter for Prometheus")]
+#[command(name = "btc-metrics", about = "Bitcoin node metrics exporter for Prometheus", version)]
 struct Cli {
     #[arg(short, long, default_value = "config.toml")]
     config: PathBuf,
