@@ -17,7 +17,7 @@ use crate::btcnode_metrics_gatherer::{AppConfig, BitcoinMetrics, BitcoinNode, Me
 use crate::state::AppState;
 
 #[derive(Parser)]
-#[command(name = "btc-metrics", about = "Bitcoin node metrics exporter for Prometheus")]
+#[command(name = "btc-metrics", about = "Bitcoin node metrics exporter for Prometheus", version)]
 struct Cli {
     #[arg(short, long, default_value = "config.toml")]
     config: PathBuf,
