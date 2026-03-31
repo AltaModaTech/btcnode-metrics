@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: 2026 AltaModa Technologies, LLC
+// SPDX-FileCopyrightText: Contributors to the btcnode-metrics project.
+
 use corepc_client::client_sync::{v28::Client, Auth};
 use corepc_client::types::v28::{
     EstimateSmartFee, GetBlockStats, GetBlockchainInfo, GetChainTips, GetMempoolInfo, GetNetTotals,

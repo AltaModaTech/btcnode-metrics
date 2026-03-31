@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: 2026 AltaModa Technologies, LLC
+// SPDX-FileCopyrightText: Contributors to the btcnode-metrics project.
+
 use prometheus::{Gauge, Registry, Opts};
 
 use super::Error;
