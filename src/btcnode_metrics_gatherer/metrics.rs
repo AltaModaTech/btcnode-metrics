@@ -105,6 +105,9 @@ pub struct BitcoinMetrics {
     // Collector meta
     pub scrape_duration_seconds: Gauge,
     pub scrape_error: Gauge,
+
+    // Build info
+    pub build_ver: Gauge,
 }
 
 macro_rules! register_gauge {
@@ -216,6 +219,13 @@ impl BitcoinMetrics {
         let scrape_duration_seconds = register_gauge!(registry, "bitcoin_collector_last_scrape_duration_seconds", "Duration of the last metrics collection in seconds");
         let scrape_error = register_gauge!(registry, "bitcoin_collector_last_scrape_error", "Whether the last scrape had an error (1=error, 0=ok)");
 
+        // btcnode_metrics build version 
+        let build_ver_opts = Opts::new("btcnode_metrics_version", "btcnode-metrics version")
+            .const_label("version", env!("CARGO_PKG_VERSION"));
+        let build_ver = Gauge::with_opts(build_ver_opts)?;
+        registry.register(Box::new(build_ver.clone()))?;
+        build_ver.set(1.0);
+
         Ok(Self {
             registry,
             blocks,
@@ -291,6 +301,7 @@ impl BitcoinMetrics {
             latest_block_fee_rate_90th,
             scrape_duration_seconds,
             scrape_error,
+            build_ver,
         })
     }
 }
