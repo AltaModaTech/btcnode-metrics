@@ -1,7 +1,7 @@
 [package]
 name = "btcnode-metrics"
 edition = "2024"
-version = "2.0.4"
+version = "2.0.5"
 description = "The Bitcoin node metrics exporter for Prometheus based on Rust Bitcoin Community's crate for Bitcoin JSON-RPC."
 license-file = "LICENSE"
 homepage = "https://github.com/AltaModaTech/btcnode-metrics"
@@ -21,3 +21,16 @@ toml = "1"
 anyhow = "1"
 corepc-client = { version = "0.10", features = ["client-sync"] }
 thiserror = "2"
+
+
+[package.metadata.docs.rs]
+# Target to test build on, used as the default landing page (default: "x86_64-unknown-linux-gnu")
+default-target = "x86_64-unknown-linux-gnu"
+# Targets to build (default: see below)
+targets = [
+    "aarch64-apple-darwin",
+    "aarch64-unknown-linux-gnu",
+    "x86_64-apple-darwin",
+    "x86_64-unknown-linux-gnu",
+    "x86_64-pc-windows-msvc"
+]
