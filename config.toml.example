@@ -1,7 +1,9 @@
+# Bitcoin node config
 [node]
-rpc_url = "http://127.0.0.1:8332"
+rpc_url = "http://127.0.0.1:9898"
 rpc_user = "bitcoinrpc"
 rpc_password = "changeme"
 
+# Prometheus metrics host config
 [server]
 listen_addr = "0.0.0.0:9332"
