@@ -22,3 +22,6 @@ target
 
 # ignore local config files
 **/*.local.toml
+
+# ignore .DS_Store recursively
+.DS_Store

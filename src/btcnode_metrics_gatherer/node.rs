@@ -125,6 +125,6 @@ impl NodeClient for BitcoinNode {
     }
 
     fn get_block_stats_by_height(&self, height: u32) -> Result<GetBlockStats, Error> {
-        Ok(self.client.get_block_stats_by_height(height)?)
+        Ok(self.client.get_block_stats_by_height(height, None)?)
     }
 }
