@@ -211,31 +211,33 @@ impl<N: NodeClient> MetricsCollector<N> {
         if let Some(height) = block_height {
             match self.node.get_block_stats_by_height(height as u32) {
                 Ok(stats) => {
-                    self.metrics.latest_block_txs.set(stats.txs as f64);
-                    self.metrics.latest_block_size.set(stats.total_size as f64);
-                    self.metrics.latest_block_weight.set(stats.total_weight as f64);
-                    self.metrics.latest_block_avg_fee.set(stats.average_fee as f64);
-                    self.metrics.latest_block_avg_fee_rate.set(stats.average_fee_rate as f64);
-                    self.metrics.latest_block_median_fee.set(stats.median_fee as f64);
-                    self.metrics.latest_block_min_fee.set(stats.minimum_fee as f64);
-                    self.metrics.latest_block_max_fee.set(stats.max_fee as f64);
-                    self.metrics.latest_block_min_fee_rate.set(stats.minimum_fee_rate as f64);
-                    self.metrics.latest_block_max_fee_rate.set(stats.max_fee_rate as f64);
-                    self.metrics.latest_block_total_fee.set(stats.total_fee as f64);
-                    self.metrics.latest_block_subsidy.set(stats.subsidy as f64);
-                    self.metrics.latest_block_inputs.set(stats.inputs as f64);
-                    self.metrics.latest_block_outputs.set(stats.outputs as f64);
-                    self.metrics.latest_block_segwit_txs.set(stats.segwit_txs as f64);
-                    self.metrics.latest_block_segwit_total_size.set(stats.segwit_total_size as f64);
-                    self.metrics.latest_block_segwit_total_weight.set(stats.segwit_total_weight as f64);
-                    self.metrics.latest_block_total_out.set(stats.total_out as f64);
-                    self.metrics.latest_block_utxo_increase.set(stats.utxo_increase as f64);
-                    self.metrics.latest_block_fee_rate_10th.set(stats.fee_rate_percentiles[0] as f64);
-                    self.metrics.latest_block_fee_rate_25th.set(stats.fee_rate_percentiles[1] as f64);
-                    self.metrics.latest_block_fee_rate_50th.set(stats.fee_rate_percentiles[2] as f64);
-                    self.metrics.latest_block_fee_rate_75th.set(stats.fee_rate_percentiles[3] as f64);
-                    self.metrics.latest_block_fee_rate_90th.set(stats.fee_rate_percentiles[4] as f64);
-                    info!("Updated latest block stats: height={}, txs={}, total_fee={}", height, stats.txs, stats.total_fee);
+                    self.metrics.latest_block_txs.set(stats.txs.unwrap_or(0) as f64);
+                    self.metrics.latest_block_size.set(stats.total_size.unwrap_or(0) as f64);
+                    self.metrics.latest_block_weight.set(stats.total_weight.unwrap_or(0) as f64);
+                    self.metrics.latest_block_avg_fee.set(stats.average_fee.unwrap_or(0) as f64);
+                    self.metrics.latest_block_avg_fee_rate.set(stats.average_fee_rate.unwrap_or(0) as f64);
+                    self.metrics.latest_block_median_fee.set(stats.median_fee.unwrap_or(0) as f64);
+                    self.metrics.latest_block_min_fee.set(stats.minimum_fee.unwrap_or(0) as f64);
+                    self.metrics.latest_block_max_fee.set(stats.max_fee.unwrap_or(0) as f64);
+                    self.metrics.latest_block_min_fee_rate.set(stats.minimum_fee_rate.unwrap_or(0) as f64);
+                    self.metrics.latest_block_max_fee_rate.set(stats.max_fee_rate.unwrap_or(0) as f64);
+                    self.metrics.latest_block_total_fee.set(stats.total_fee.unwrap_or(0) as f64);
+                    self.metrics.latest_block_subsidy.set(stats.subsidy.unwrap_or(0) as f64);
+                    self.metrics.latest_block_inputs.set(stats.inputs.unwrap_or(0) as f64);
+                    self.metrics.latest_block_outputs.set(stats.outputs.unwrap_or(0) as f64);
+                    self.metrics.latest_block_segwit_txs.set(stats.segwit_txs.unwrap_or(0) as f64);
+                    self.metrics.latest_block_segwit_total_size.set(stats.segwit_total_size.unwrap_or(0) as f64);
+                    self.metrics.latest_block_segwit_total_weight.set(stats.segwit_total_weight.unwrap_or(0) as f64);
+                    self.metrics.latest_block_total_out.set(stats.total_out.unwrap_or(0) as f64);
+                    self.metrics.latest_block_utxo_increase.set(stats.utxo_increase.unwrap_or(0) as f64);
+                    if let Some(p) = stats.fee_rate_percentiles {
+                        self.metrics.latest_block_fee_rate_10th.set(p[0] as f64);
+                        self.metrics.latest_block_fee_rate_25th.set(p[1] as f64);
+                        self.metrics.latest_block_fee_rate_50th.set(p[2] as f64);
+                        self.metrics.latest_block_fee_rate_75th.set(p[3] as f64);
+                        self.metrics.latest_block_fee_rate_90th.set(p[4] as f64);
+                    }
+                    info!("Updated latest block stats: height={}, txs={}, total_fee={}", height, stats.txs.unwrap_or(0), stats.total_fee.unwrap_or(0));
                 }
                 Err(e) => {
                     warn!("Failed to get block stats for height {height}: {e}");
@@ -360,7 +362,6 @@ mod tests {
                     addresses_processed: None,
                     addresses_rate_limited: None,
                     permissions: vec![],
-                    whitelisted: None,
                     minimum_fee_filter: 0.00001,
                     bytes_sent_per_message: Default::default(),
                     bytes_received_per_message: Default::default(),
@@ -405,7 +406,6 @@ mod tests {
                     addresses_processed: None,
                     addresses_rate_limited: None,
                     permissions: vec![],
-                    whitelisted: None,
                     minimum_fee_filter: 0.00001,
                     bytes_sent_per_message: Default::default(),
                     bytes_received_per_message: Default::default(),
@@ -496,35 +496,35 @@ mod tests {
 
         fn get_block_stats_by_height(&self, _height: u32) -> Result<GetBlockStats, Error> {
             Ok(GetBlockStats {
-                average_fee: 15_000,
-                average_fee_rate: 25,
-                average_tx_size: 500,
-                block_hash: "0000000000000000000000000000000000000000000000000000000000000000".into(),
-                fee_rate_percentiles: [5, 10, 20, 50, 100],
-                height: 800_000,
-                inputs: 6000,
-                max_fee: 500_000,
-                max_fee_rate: 200,
-                max_tx_size: 100_000,
-                median_fee: 10_000,
-                median_time: 1_699_999_000,
-                median_tx_size: 250,
-                minimum_fee: 500,
-                minimum_fee_rate: 1,
-                minimum_tx_size: 150,
-                outputs: 8000,
-                subsidy: 625_000_000,
-                segwit_total_size: 1_500_000,
-                segwit_total_weight: 3_000_000,
-                segwit_txs: 2000,
-                time: 1_700_000_000,
-                total_out: 500_000_000_000,
-                total_size: 2_000_000,
-                total_weight: 3_993_000,
-                total_fee: 37_500_000,
-                txs: 2500,
-                utxo_increase: 500,
-                utxo_size_increase: 25_000,
+                average_fee: Some(15_000),
+                average_fee_rate: Some(25),
+                average_tx_size: Some(500),
+                block_hash: Some("0000000000000000000000000000000000000000000000000000000000000000".to_string()),
+                fee_rate_percentiles: Some([5, 10, 20, 50, 100]),
+                height: Some(800_000),
+                inputs: Some(6000),
+                max_fee: Some(500_000),
+                max_fee_rate: Some(200),
+                max_tx_size: Some(100_000),
+                median_fee: Some(10_000),
+                median_time: Some(1_699_999_000),
+                median_tx_size: Some(250),
+                minimum_fee: Some(500),
+                minimum_fee_rate: Some(1),
+                minimum_tx_size: Some(150),
+                outputs: Some(8000),
+                subsidy: Some(625_000_000),
+                segwit_total_size: Some(1_500_000),
+                segwit_total_weight: Some(3_000_000),
+                segwit_txs: Some(2000),
+                time: Some(1_700_000_000),
+                total_out: Some(500_000_000_000),
+                total_size: Some(2_000_000),
+                total_weight: Some(3_993_000),
+                total_fee: Some(37_500_000),
+                txs: Some(2500),
+                utxo_increase: Some(500),
+                utxo_size_increase: Some(25_000),
                 utxo_increase_actual: None,
                 utxo_size_increase_actual: None,
             })
