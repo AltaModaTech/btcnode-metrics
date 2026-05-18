@@ -256,8 +256,7 @@ impl<N: NodeClient> MetricsCollector<N> {
 mod tests {
     use super::*;
     use crate::btcnode_metrics_gatherer::Error;
-    use crate::btcnode_metrics_gatherer::node::{ChainTxStats, MiningInfo};
-    use corepc_client::types::v28::*;
+    use corepc_client::types::v29::*;
 
     struct MockNode;
 
@@ -270,6 +269,8 @@ mod tests {
                 best_block_hash: String::from(
                     "0000000000000000000000000000000000000000000000000000000000000000"
                 ),
+                bits: String::from("1703255b"),
+                target: String::from("00000000000000000003255b0000000000000000000000000000000000000000"),
                 difficulty: 53_911_173_001_054.59,
                 time: 1_700_000_000,
                 median_time: 1_699_999_000,
@@ -281,7 +282,7 @@ mod tests {
                 prune_height: None,
                 automatic_pruning: None,
                 prune_target_size: None,
-                softforks: Default::default(),
+                signet_challenge: None,
                 warnings: vec![],
             })
         }
@@ -416,21 +417,30 @@ mod tests {
             ]))
         }
 
-        fn get_mining_info(&self) -> Result<MiningInfo, Error> {
-            Ok(MiningInfo {
+        fn get_mining_info(&self) -> Result<GetMiningInfo, Error> {
+            Ok(GetMiningInfo {
                 blocks: 800_000,
                 current_block_weight: Some(3_993_000),
                 current_block_tx: Some(2_500),
+                bits: String::from("1703255b"),
                 difficulty: 53_911_173_001_054.59,
+                target: String::from("00000000000000000003255b0000000000000000000000000000000000000000"),
                 network_hash_ps: 4.5e17,
                 pooled_tx: 5000,
                 chain: "main".into(),
+                signet_challenge: None,
+                next: NextBlockInfo {
+                    height: 800_001,
+                    bits: String::from("1703255b"),
+                    difficulty: 53_911_173_001_054.59,
+                    target: String::from("00000000000000000003255b0000000000000000000000000000000000000000"),
+                },
                 warnings: vec![],
             })
         }
 
-        fn get_chain_tx_stats(&self) -> Result<ChainTxStats, Error> {
-            Ok(ChainTxStats {
+        fn get_chain_tx_stats(&self) -> Result<GetChainTxStats, Error> {
+            Ok(GetChainTxStats {
                 time: 1_700_000_000,
                 tx_count: 900_000_000,
                 window_final_block_hash: "0000000000000000000000000000000000000000000000000000000000000000".into(),
@@ -645,11 +655,11 @@ mod tests {
             MockNode.get_peer_info()
         }
 
-        fn get_mining_info(&self) -> Result<MiningInfo, Error> {
+        fn get_mining_info(&self) -> Result<GetMiningInfo, Error> {
             MockNode.get_mining_info()
         }
 
-        fn get_chain_tx_stats(&self) -> Result<ChainTxStats, Error> {
+        fn get_chain_tx_stats(&self) -> Result<GetChainTxStats, Error> {
             MockNode.get_chain_tx_stats()
         }
 
