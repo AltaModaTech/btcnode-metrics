@@ -242,7 +242,7 @@ dependencies = [
 
 [[package]]
 name = "btcnode-metrics"
-version = "2.0.17"
+version = "2.0.16"
 dependencies = [
  "anyhow",
  "axum",
@@ -327,9 +327,9 @@ checksum = "1d07550c9036bf2ae0c684c4297d503f838287c83c53686d05370d0e139ae570"
 
 [[package]]
 name = "corepc-client"
-version = "0.17.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3909247bf69ff43c8929294e636c7d8d248397e10feb2b0b5fdff42280c036c2"
+checksum = "349238a237f42ae84050dc449406a734a752c418b9dd531ecb4e93e7b97d094e"
 dependencies = [
  "bitcoin",
  "corepc-types",
@@ -341,9 +341,9 @@ dependencies = [
 
 [[package]]
 name = "corepc-types"
-version = "0.16.0"
+version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6fa32f494e25aa816dc5adfed14374676765deb0914b8fe8dfb63058866cce86"
+checksum = "86c274042a89391a324ab313b5210680969d02a9fa977733c3354aea4d7a4883"
 dependencies = [
  "bitcoin",
  "serde",
