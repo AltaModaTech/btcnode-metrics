@@ -242,7 +242,7 @@ dependencies = [
 
 [[package]]
 name = "btcnode-metrics"
-version = "2.0.16"
+version = "2.0.18"
 dependencies = [
  "anyhow",
  "axum",
