@@ -23,6 +23,6 @@ jobs:
 
       - name: Publish to crates.io
         run: |
-          cargo publish --color auto
+          cargo publish --color auto --verbose
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}   
