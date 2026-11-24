@@ -8,11 +8,17 @@ These instructions are for installing and running from the shell. To install as 
 
 ### Install
 
+`cargo install btcnode-metrics@<version>`
+
+where '<version>' is one of [this project's crates.io versions](https://crates.io/crates/btcnode-metrics/versions). The patch (3rd segment of version) indicates the version of corepc-client included.
+
+Alternatively, to install the most recent version of this crate:
+
 `cargo install btcnode-metrics`
 
 ### Configure
 
-After installing btcnode-metrics,
+After installing btcnode-metrics, modify the example config file to match your situation.
 
 - Copy `config.toml.example` to `config.local.toml`.
 - Edit `config.local.toml`
