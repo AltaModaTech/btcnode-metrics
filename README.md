@@ -10,7 +10,7 @@ These instructions are for installing and running from the shell. To install as 
 
 `cargo install btcnode-metrics@<version>`
 
-where '<version>' is one of [this project's crates.io versions](https://crates.io/crates/btcnode-metrics/versions). The patch (3rd segment of version) indicates the version of corepc-client included.
+where '\<version>' is one of [this project's crates.io versions](https://crates.io/crates/btcnode-metrics/versions). The patch (3rd segment of version) indicates the version of corepc-client included.
 
 Alternatively, to install the most recent version of this crate:
 
